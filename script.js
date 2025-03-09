@@ -8,17 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const userInput = document.getElementById("user-input");
     const sendMessage = document.getElementById("send-message");
 
-    // 🌙 Dark Mode Toggle
+    // 🌙 Dynamic Dark Mode Toggle with Icon Change
     function enableDarkMode() {
         body.classList.add("dark-mode");
         localStorage.setItem("dark-mode", "enabled");
-        toggleMode.textContent = "☀️ Light Mode";
+        toggleMode.innerHTML = '<i class="fas fa-sun"></i>';
     }
 
     function disableDarkMode() {
         body.classList.remove("dark-mode");
         localStorage.setItem("dark-mode", "disabled");
-        toggleMode.textContent = "🌙 Dark Mode";
+        toggleMode.innerHTML = '<i class="fas fa-moon"></i>';
     }
 
     if (localStorage.getItem("dark-mode") === "enabled") enableDarkMode();
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body.classList.contains("dark-mode") ? disableDarkMode() : enableDarkMode();
     });
 
-    // 🚥 Live Traffic Updates with Smooth Animation
+    // 🚥 Real-Time Traffic Updates with Animation
     function updateTrafficStatus() {
         const statuses = [
             { text: "🟢 Smooth Traffic", color: "#00ff00" },
@@ -37,18 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         let randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-        
-        let trafficBox = document.createElement("p");
-        trafficBox.textContent = `${randomStatus.text} - Updated: ${new Date().toLocaleTimeString()}`;
-        trafficBox.style.color = randomStatus.color;
-        trafficBox.style.opacity = "0";
-        trafficBox.style.transition = "opacity 1s ease-in-out";
 
-        trafficDisplay.innerHTML = "";
-        trafficDisplay.appendChild(trafficBox);
+        trafficDisplay.innerHTML = `<p style="color:${randomStatus.color}; opacity:0; transition:opacity 1s ease-in-out;">
+            ${randomStatus.text} - Updated: ${new Date().toLocaleTimeString()}</p>`;
 
         setTimeout(() => {
-            trafficBox.style.opacity = "1";
+            trafficDisplay.querySelector("p").style.opacity = "1";
         }, 100);
     }
 
@@ -57,43 +51,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 💬 Chatbot Toggle with Smooth Effect
     chatbotToggle.addEventListener("click", () => {
-        chatbot.style.display = chatbot.style.display === "block" ? "none" : "block";
-        chatbot.style.opacity = "0";
-        setTimeout(() => {
-            chatbot.style.opacity = "1";
-        }, 200);
+        chatbot.classList.toggle("active");
     });
 
-    // 🤖 AI Chatbot Logic (Basic)
+    // 🤖 AI Chatbot Logic (Improved)
     function chatbotResponse(userMessage) {
         const responses = {
-            "hello": "Hi there! How can I assist you with traffic updates?",
-            "traffic": "I provide real-time traffic updates. Stay safe on the road!",
-            "help": "I'm here to help. Ask me about traffic, dark mode, or chatbot features!"
+            "hello": "👋 Hi! How can I assist you with traffic updates today?",
+            "traffic": "🚦 I provide live traffic updates and AI-powered solutions. Need help with anything specific?",
+            "help": "💡 I can provide traffic insights, AI predictions, and answer general queries.",
+            "roadblock": "⚠️ Roadblocks are detected using real-time AI analysis. Please check the traffic status above."
         };
 
-        return responses[userMessage.toLowerCase()] || "I'm still learning! Try asking about traffic updates.";
+        return responses[userMessage.toLowerCase()] || "🤖 I'm still learning! Try asking about traffic, roadblocks, or AI assistance.";
     }
 
     sendMessage.addEventListener("click", () => {
         let userMessage = userInput.value.trim();
         if (userMessage !== "") {
             let userBubble = document.createElement("div");
+            userBubble.classList.add("user-message");
             userBubble.textContent = "👤 " + userMessage;
-            userBubble.style.color = "#00d4ff";
             chatbox.appendChild(userBubble);
 
             let botBubble = document.createElement("div");
+            botBubble.classList.add("bot-message");
             botBubble.textContent = "🤖 Typing...";
-            botBubble.style.color = "#00ff00";
             chatbox.appendChild(botBubble);
 
             setTimeout(() => {
-                botBubble.textContent = "🤖 " + chatbotResponse(userMessage);
+                botBubble.textContent = chatbotResponse(userMessage);
+                chatbox.scrollTop = chatbox.scrollHeight;
             }, 1000);
 
             userInput.value = "";
-            chatbox.scrollTop = chatbox.scrollHeight;
         }
     });
 
@@ -107,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 🎙️ Voice Assistant for Traffic Updates (Optional)
+    // 🎙️ AI Voice Assistant for Traffic Updates
     function speak(text) {
         let speech = new SpeechSynthesisUtterance(text);
         speech.lang = "en-US";
@@ -117,8 +108,18 @@ document.addEventListener("DOMContentLoaded", () => {
         window.speechSynthesis.speak(speech);
     }
 
+    let voiceEnabled = true; // Toggle voice updates
+
     setInterval(() => {
-        let currentStatus = document.querySelector(".traffic-display p").textContent;
-        speak(currentStatus);
+        if (voiceEnabled) {
+            let currentStatus = document.querySelector(".traffic-display p").textContent;
+            speak(currentStatus);
+        }
     }, 20000); // Speaks every 20 seconds
+
+    // 🎤 Toggle Voice Updates with Click
+    toggleMode.addEventListener("dblclick", () => {
+        voiceEnabled = !voiceEnabled;
+        alert(voiceEnabled ? "🎙️ Voice Updates Enabled" : "🔇 Voice Updates Disabled");
+    });
 });

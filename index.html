@@ -3,56 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚦 Futuristic Smart Traffic System</title>
+    <title>Advanced Traffic & AI Chatbot</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header with Neon Effect -->
-    <header class="futuristic-header">
-        <h1>🚦 AI-Powered Smart Traffic</h1>
-        <button id="toggle-mode"><i class="fas fa-moon"></i></button>
+
+    <!-- HEADER -->
+    <header>
+        <img src="assets/logo.png" alt="Logo" class="logo">
+        <button id="toggle-mode" class="theme-btn">🌙 Dark Mode</button>
     </header>
 
-    <!-- Hero Section with Animated Background -->
+    <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-overlay"></div>
-        <h2 class="hero-title">🚗 AI-Powered Traffic Management</h2>
-        <p class="hero-subtitle">Live updates. Smart routing. Zero congestion.</p>
-        <button class="cta-button">🚀 Explore Future Traffic Tech</button>
+        <h1>Real-Time Traffic Updates & AI Chatbot</h1>
+        <p>Stay informed with live traffic updates and talk to our AI assistant</p>
+        <button class="cta-button">Get Started</button>
     </section>
 
-    <!-- AI-Powered Live Traffic Updates -->
-    <section class="traffic-updates">
-        <h3>🚥 Live Traffic Insights</h3>
-        <div class="traffic-display futuristic-panel">
-            <p>Loading real-time data...</p>
-        </div>
+    <!-- LIVE TRAFFIC UPDATES -->
+    <section class="traffic-section">
+        <h2>🚦 Live Traffic Status</h2>
+        <div class="traffic-display">Loading...</div>
     </section>
 
-    <!-- AI Assistant Chatbot -->
+    <!-- AI CHATBOT -->
     <div class="chatbot-container">
-        <div class="chatbot futuristic-panel">
+        <button class="chatbot-toggle">💬</button>
+        <div class="chatbot">
             <div class="chatbox"></div>
-            <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Ask AI...">
-                <button id="send-message"><i class="fas fa-paper-plane"></i></button>
-            </div>
+            <input type="text" id="user-input" placeholder="Ask me something...">
+            <button id="send-message">Send</button>
         </div>
-        <button class="chatbot-toggle"><i class="fas fa-comment-dots"></i></button>
     </div>
-
-    <!-- Contact Section with Futuristic Glow -->
-    <section class="contact futuristic-panel">
-        <h3>📞 Connect With Us</h3>
-        <p><i class="fas fa-envelope"></i> Email: <a href="mailto:support@smarttraffic.com">support@smarttraffic.com</a></p>
-        <p><i class="fas fa-phone"></i> Phone: <a href="tel:+1234567890">+123 456 7890</a></p>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Futuristic Smart Traffic System. All Rights Reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>

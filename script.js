@@ -1,63 +1,83 @@
+// Wait for the DOM to load before running the script
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Website Loaded!");
+
+    // 🌙 Light/Dark Mode Toggle
+    const themeButton = document.getElementById("theme-btn");
     const body = document.body;
-    const toggleMode = document.getElementById("toggle-mode");
-    const trafficDisplay = document.querySelector(".traffic-display");
-    const chatbotToggle = document.querySelector(".chatbot-toggle");
-    const chatbot = document.querySelector(".chatbot");
-    const chatbox = document.querySelector(".chatbox");
-    const userInput = document.getElementById("user-input");
-    const sendMessage = document.getElementById("send-message");
 
-    // 🌙 Dark Mode
-    function enableDarkMode() {
+    // Check saved theme from localStorage
+    if (localStorage.getItem("theme") === "dark") {
         body.classList.add("dark-mode");
-        localStorage.setItem("dark-mode", "enabled");
-        toggleMode.textContent = "☀️ Light Mode";
     }
 
-    function disableDarkMode() {
-        body.classList.remove("dark-mode");
-        localStorage.setItem("dark-mode", "disabled");
-        toggleMode.textContent = "🌙 Dark Mode";
-    }
-
-    if (localStorage.getItem("dark-mode") === "enabled") enableDarkMode();
-
-    toggleMode.addEventListener("click", () => {
-        body.classList.contains("dark-mode") ? disableDarkMode() : enableDarkMode();
+    themeButton.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        // Save theme preference
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
     });
 
-    // 🚦 Live Traffic Updates
-    function updateTrafficStatus() {
-        const statuses = [
-            { text: "🟢 Smooth Traffic", color: "#00ff00" },
-            { text: "🟡 Moderate Congestion", color: "#ffff00" },
-            { text: "🔴 Heavy Traffic", color: "#ff0000" }
-        ];
-        let randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-        trafficDisplay.innerHTML = `<p style="color:${randomStatus.color}">${randomStatus.text}</p>`;
-    }
+    // 🧠 AI Chatbot Functionality
+    const chatbotToggle = document.getElementById("chatbot-toggle");
+    const chatbotContainer = document.getElementById("chatbot");
+    const chatbox = document.getElementById("chatbox");
+    const userInput = document.getElementById("user-input");
+    const sendMessageButton = document.getElementById("send-message");
 
-    setInterval(updateTrafficStatus, 5000);
-    updateTrafficStatus();
-
-    // 💬 Chatbot
     chatbotToggle.addEventListener("click", () => {
-        chatbot.style.display = chatbot.style.display === "block" ? "none" : "block";
+        chatbotContainer.style.display = chatbotContainer.style.display === "block" ? "none" : "block";
     });
 
-    function chatbotResponse(userMessage) {
-        return userMessage.toLowerCase() === "hello" ? "Hi there! How can I assist you?" : "I'm still learning!";
+    // Function to append messages
+    function appendMessage(sender, message) {
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add(sender === "user" ? "user-message" : "bot-message");
+        msgDiv.innerText = message;
+        chatbox.appendChild(msgDiv);
+        chatbox.scrollTop = chatbox.scrollHeight; // Auto-scroll to latest message
     }
 
-    sendMessage.addEventListener("click", () => {
-        let userMessage = userInput.value.trim();
-        if (userMessage !== "") {
-            chatbox.innerHTML += `<div>👤 ${userMessage}</div>`;
+    sendMessageButton.addEventListener("click", () => {
+        const userMessage = userInput.value.trim();
+        if (!userMessage) return;
+        appendMessage("user", userMessage);
+        userInput.value = "";
+
+        // Simulate AI chatbot response
+        setTimeout(() => {
+            appendMessage("bot", "🤖 AI is thinking...");
             setTimeout(() => {
-                chatbox.innerHTML += `<div>🤖 ${chatbotResponse(userMessage)}</div>`;
+                const botReply = `I received: "${userMessage}" 😊`;
+                chatbox.lastChild.innerText = botReply;
             }, 1000);
-            userInput.value = "";
-        }
+        }, 500);
+    });
+
+    // Enter key to send message
+    userInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") sendMessageButton.click();
+    });
+
+    // 🚦 Simulated Traffic Updates
+    const trafficDisplay = document.getElementById("traffic-display");
+    const trafficLevels = ["Low Traffic 🚗", "Moderate Traffic 🚙", "Heavy Traffic 🚛🚕"];
+    let trafficIndex = 0;
+
+    function updateTraffic() {
+        trafficDisplay.innerText = `Current Traffic: ${trafficLevels[trafficIndex]}`;
+        trafficIndex = (trafficIndex + 1) % trafficLevels.length;
+    }
+
+    setInterval(updateTraffic, 5000); // Update every 5 seconds
+    updateTraffic(); // Initial update
+
+    // 🔥 Smooth Scroll for Better UX
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
     });
 });

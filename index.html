@@ -11,7 +11,7 @@
     <!-- Header with Neon Effect -->
     <header class="futuristic-header">
         <h1>🚦 AI-Powered Smart Traffic</h1>
-        <button id="toggle-mode">🌙 Dark Mode</button>
+        <button id="toggle-mode"><i class="fas fa-moon"></i></button>
     </header>
 
     <!-- Hero Section with Animated Background -->
@@ -25,17 +25,21 @@
     <!-- AI-Powered Live Traffic Updates -->
     <section class="traffic-updates">
         <h3>🚥 Live Traffic Insights</h3>
-        <div class="traffic-display futuristic-panel"></div>
+        <div class="traffic-display futuristic-panel">
+            <p>Loading real-time data...</p>
+        </div>
     </section>
 
     <!-- AI Assistant Chatbot -->
     <div class="chatbot-container">
         <div class="chatbot futuristic-panel">
             <div class="chatbox"></div>
-            <input type="text" id="user-input" placeholder="Ask AI...">
-            <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Ask AI...">
+                <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
-        <button class="chatbot-toggle">💬</button>
+        <button class="chatbot-toggle"><i class="fas fa-comment-dots"></i></button>
     </div>
 
     <!-- Contact Section with Futuristic Glow -->
@@ -44,6 +48,11 @@
         <p><i class="fas fa-envelope"></i> Email: <a href="mailto:support@smarttraffic.com">support@smarttraffic.com</a></p>
         <p><i class="fas fa-phone"></i> Phone: <a href="tel:+1234567890">+123 456 7890</a></p>
     </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Futuristic Smart Traffic System. All Rights Reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

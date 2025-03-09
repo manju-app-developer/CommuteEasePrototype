@@ -1,25 +1,26 @@
-// Wait for the DOM to load before running the script
+// 🚀 Wait for the DOM to load before running the script
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("🚦 TrafficAI Loaded!");
+    console.log("🚦 TrafficAI Fully Loaded!");
 
-    // 🌙 Light/Dark Mode Toggle
+    // 🌙 Light/Dark Mode Toggle with Smooth Transition
     const themeButton = document.getElementById("toggle-mode");
     const body = document.body;
 
-    // Check saved theme from localStorage
-    if (localStorage.getItem("theme") === "dark") {
-        body.classList.add("dark-mode");
-        themeButton.innerText = "☀️ Light Mode";
+    function applyTheme(theme) {
+        body.classList.toggle("dark-mode", theme === "dark");
+        themeButton.innerText = theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
     }
 
+    const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
+
     themeButton.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        const isDarkMode = body.classList.contains("dark-mode");
-        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-        themeButton.innerText = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
+        const newTheme = body.classList.contains("dark-mode") ? "light" : "dark";
+        localStorage.setItem("theme", newTheme);
+        applyTheme(newTheme);
     });
 
-    // 🚦 Enhanced Traffic Updates with Animation
+    // 🚦 Dynamic Traffic Updates with Smooth Transitions
     const trafficDisplay = document.querySelector(".traffic-display");
     const trafficLevels = [
         { status: "🚗 Low Traffic", color: "green" },
@@ -41,12 +42,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateTraffic, 5000);
     updateTraffic();
 
-    // 🧠 Smart AI Chatbot
+    // 🧠 Smart AI Chatbot with Enhanced Features
     const chatbotToggle = document.querySelector(".chatbot-toggle");
     const chatbotContainer = document.querySelector(".chatbot");
     const chatbox = document.querySelector(".chatbox");
     const userInput = document.getElementById("user-input");
     const sendMessageButton = document.getElementById("send-message");
+    const voiceInputButton = document.getElementById("voice-input");
     const closeChatButton = document.querySelector(".close-chat");
 
     chatbotToggle.addEventListener("click", () => {
@@ -58,16 +60,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const chatbotResponses = {
-        "hello": "Hi there! How can I help you today? 😊",
-        "traffic": "I can provide traffic updates for your area! 🚦",
-        "weather": "Sorry, I don't have live weather updates yet! ☀️",
+        "hello": "Hi there! How can I assist you today? 😊",
+        "traffic": "I can provide real-time traffic updates for your area! 🚦",
+        "weather": "Currently, I don't have live weather updates! ☀️",
         "bye": "Goodbye! Have a great day! 👋",
+        "dark mode": "You can toggle dark mode using the ☀️/🌙 button above!",
         "default": "I'm still learning! Try asking something else. 🤖"
     };
 
     function getChatbotResponse(userMessage) {
-        userMessage = userMessage.toLowerCase();
-        return chatbotResponses[userMessage] || chatbotResponses["default"];
+        return chatbotResponses[userMessage.toLowerCase()] || chatbotResponses["default"];
     }
 
     function appendMessage(sender, message) {
@@ -87,8 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             appendMessage("bot", "🤖 AI is thinking...");
             setTimeout(() => {
-                const botReply = getChatbotResponse(userMessage);
-                chatbox.lastChild.innerText = botReply;
+                chatbox.lastChild.innerText = getChatbotResponse(userMessage);
             }, 1000);
         }, 500);
     });
@@ -97,7 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.key === "Enter") sendMessageButton.click();
     });
 
-    // 🔥 Smooth Scroll for Navigation
+    // 🎙️ Voice Input for Chatbot
+    voiceInputButton.addEventListener("click", () => {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "en-US";
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const userMessage = event.results[0][0].transcript;
+            userInput.value = userMessage;
+            sendMessageButton.click();
+        };
+    });
+
+    // 🔥 Smooth Scroll for Navigation Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -107,11 +121,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 🔐 Login Button Click Handling
+    // 🔐 Login Button Click Handling with Modal
     const loginButton = document.getElementById("login-btn");
+    const loginModal = document.querySelector(".modal");
+    const closeModal = document.querySelector(".close-modal");
+
     loginButton.addEventListener("click", () => {
-        alert("🚀 Login functionality coming soon!");
+        loginModal.style.display = "block";
     });
 
-    console.log("✅ Advanced script.js fully loaded!");
+    closeModal.addEventListener("click", () => {
+        loginModal.style.display = "none";
+    });
+
+    // Close modal on outside click
+    window.addEventListener("click", (event) => {
+        if (event.target === loginModal) {
+            loginModal.style.display = "none";
+        }
+    });
+
+    console.log("✅ Fully Enhanced script.js Loaded Successfully!");
 });

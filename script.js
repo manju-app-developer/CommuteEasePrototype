@@ -1,26 +1,24 @@
-// 🚀 Wait for the DOM to load before running the script
+// 🚦 TrafficAI - Smart Traffic Management System
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("🚦 TrafficAI Fully Loaded!");
+    console.log("🚦 TrafficAI Loaded!");
 
-    // 🌙 Light/Dark Mode Toggle with Smooth Transition
+    // 🌙 Light/Dark Mode Toggle
     const themeButton = document.getElementById("toggle-mode");
     const body = document.body;
 
-    function applyTheme(theme) {
-        body.classList.toggle("dark-mode", theme === "dark");
-        themeButton.innerText = theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+        themeButton.innerText = "☀️ Light Mode";
     }
 
-    const savedTheme = localStorage.getItem("theme") || "light";
-    applyTheme(savedTheme);
-
     themeButton.addEventListener("click", () => {
-        const newTheme = body.classList.contains("dark-mode") ? "light" : "dark";
-        localStorage.setItem("theme", newTheme);
-        applyTheme(newTheme);
+        body.classList.toggle("dark-mode");
+        const isDarkMode = body.classList.contains("dark-mode");
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+        themeButton.innerText = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
     });
 
-    // 🚦 Dynamic Traffic Updates with Smooth Transitions
+    // 🚦 Real-Time Traffic Updates
     const trafficDisplay = document.querySelector(".traffic-display");
     const trafficLevels = [
         { status: "🚗 Low Traffic", color: "green" },
@@ -42,76 +40,62 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateTraffic, 5000);
     updateTraffic();
 
-    // 🧠 Smart AI Chatbot with Enhanced Features
-    const chatbotToggle = document.querySelector(".chatbot-toggle");
-    const chatbotContainer = document.querySelector(".chatbot");
-    const chatbox = document.querySelector(".chatbox");
-    const userInput = document.getElementById("user-input");
-    const sendMessageButton = document.getElementById("send-message");
-    const voiceInputButton = document.getElementById("voice-input");
-    const closeChatButton = document.querySelector(".close-chat");
+    // 📡 Bluetooth/Wi-Fi Vehicle Pairing
+    async function connectToVehicle() {
+        try {
+            const device = await navigator.bluetooth.requestDevice({
+                acceptAllDevices: true
+            });
+            console.log("🔗 Connected to:", device.name);
+            alert(`✅ Connected to ${device.name}`);
+        } catch (error) {
+            console.error("⚠️ Bluetooth connection failed:", error);
+        }
+    }
 
-    chatbotToggle.addEventListener("click", () => {
-        chatbotContainer.style.display = chatbotContainer.style.display === "block" ? "none" : "block";
+    document.getElementById("connect-vehicle").addEventListener("click", connectToVehicle);
+
+    // 🗺️ AI-Powered Route Optimization
+    function getOptimalRoute() {
+        const routes = [
+            { type: "Fastest", time: "15 min" },
+            { type: "Eco-Friendly", time: "18 min" },
+            { type: "Shortest", time: "17 min" }
+        ];
+        const bestRoute = routes[Math.floor(Math.random() * routes.length)];
+        alert(`🚀 AI Selected Route: ${bestRoute.type} (${bestRoute.time})`);
+    }
+
+    document.getElementById("optimize-route").addEventListener("click", getOptimalRoute);
+
+    // 🎙️ Voice Command System
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
+
+    document.getElementById("voice-command").addEventListener("click", () => {
+        recognition.start();
     });
 
-    closeChatButton.addEventListener("click", () => {
-        chatbotContainer.style.display = "none";
-    });
-
-    const chatbotResponses = {
-        "hello": "Hi there! How can I assist you today? 😊",
-        "traffic": "I can provide real-time traffic updates for your area! 🚦",
-        "weather": "Currently, I don't have live weather updates! ☀️",
-        "bye": "Goodbye! Have a great day! 👋",
-        "dark mode": "You can toggle dark mode using the ☀️/🌙 button above!",
-        "default": "I'm still learning! Try asking something else. 🤖"
+    recognition.onresult = (event) => {
+        const voiceText = event.results[0][0].transcript.toLowerCase();
+        console.log("🎙️ Voice Command:", voiceText);
+        
+        if (voiceText.includes("traffic")) {
+            alert("🚦 Current Traffic: " + trafficLevels[trafficIndex].status);
+        } else if (voiceText.includes("route")) {
+            getOptimalRoute();
+        } else {
+            alert("🤖 AI: Sorry, I didn't understand.");
+        }
     };
 
-    function getChatbotResponse(userMessage) {
-        return chatbotResponses[userMessage.toLowerCase()] || chatbotResponses["default"];
-    }
-
-    function appendMessage(sender, message) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add(sender === "user" ? "user-message" : "bot-message");
-        msgDiv.innerText = message;
-        chatbox.appendChild(msgDiv);
-        chatbox.scrollTop = chatbox.scrollHeight;
-    }
-
-    sendMessageButton.addEventListener("click", () => {
-        const userMessage = userInput.value.trim();
-        if (!userMessage) return;
-        appendMessage("user", userMessage);
-        userInput.value = "";
-
-        setTimeout(() => {
-            appendMessage("bot", "🤖 AI is thinking...");
-            setTimeout(() => {
-                chatbox.lastChild.innerText = getChatbotResponse(userMessage);
-            }, 1000);
-        }, 500);
+    // 🔔 Custom Alerts & Notifications
+    document.getElementById("set-alert").addEventListener("click", () => {
+        const alertType = document.getElementById("alert-type").value;
+        alert(`🔔 Alert set for: ${alertType}`);
     });
 
-    userInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") sendMessageButton.click();
-    });
-
-    // 🎙️ Voice Input for Chatbot
-    voiceInputButton.addEventListener("click", () => {
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = "en-US";
-        recognition.start();
-
-        recognition.onresult = (event) => {
-            const userMessage = event.results[0][0].transcript;
-            userInput.value = userMessage;
-            sendMessageButton.click();
-        };
-    });
-
-    // 🔥 Smooth Scroll for Navigation Links
+    // 🔄 Smooth Scroll for Navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -121,25 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 🔐 Login Button Click Handling with Modal
-    const loginButton = document.getElementById("login-btn");
-    const loginModal = document.querySelector(".modal");
-    const closeModal = document.querySelector(".close-modal");
-
-    loginButton.addEventListener("click", () => {
-        loginModal.style.display = "block";
+    // 🔐 Login Button Click Handling
+    document.getElementById("login-btn").addEventListener("click", () => {
+        alert("🚀 Login functionality coming soon!");
     });
 
-    closeModal.addEventListener("click", () => {
-        loginModal.style.display = "none";
-    });
-
-    // Close modal on outside click
-    window.addEventListener("click", (event) => {
-        if (event.target === loginModal) {
-            loginModal.style.display = "none";
-        }
-    });
-
-    console.log("✅ Fully Enhanced script.js Loaded Successfully!");
+    console.log("✅ Advanced script.js fully loaded!");
 });

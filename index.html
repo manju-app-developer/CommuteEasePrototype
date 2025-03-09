@@ -18,12 +18,10 @@
         <p>AI-Powered Smart Traffic Management System</p>
     </header>
 
-    <!-- 🗺️ Interactive Map (Placeholder) -->
+    <!-- 🗺️ Interactive Traffic Map (Without APIs) -->
     <section class="map-container">
         <h2>Live Traffic Map</h2>
-        <div class="map">
-            <p>🗺️ Interactive Traffic Map Coming Soon...</p>
-        </div>
+        <canvas id="traffic-map"></canvas>
     </section>
 
     <!-- 🚦 Real-Time Traffic Updates -->
@@ -35,6 +33,8 @@
     <!-- 🛣️ AI-Powered Route Optimization -->
     <section class="route-optimization">
         <h2>Find the Best Route</h2>
+        <input type="text" id="start-location" placeholder="Enter Start Location">
+        <input type="text" id="end-location" placeholder="Enter Destination">
         <button id="route-optimize">🚀 Optimize Route</button>
     </section>
 
@@ -42,12 +42,13 @@
     <section class="voice-control">
         <h2>Voice Control</h2>
         <button id="voice-command">🎙️ Activate Voice Command</button>
+        <p id="voice-status">Say "Find Best Route" or "Show Traffic"</p>
     </section>
 
     <!-- 🚏 Traffic Signal Timings -->
     <section class="signal-info">
         <h2>Traffic Signal Timings</h2>
-        <p>Loading data...</p>
+        <p id="signal-status">Loading data...</p>
     </section>
 
     <!-- 🔔 Custom Alerts -->

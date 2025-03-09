@@ -3,101 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrafficAI - Live Traffic & AI Assistant</title>
+    <title>TrafficAI - Smart Traffic Management</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
 <body>
 
-    <!-- HEADER & NAVIGATION -->
+    <!-- 🔄 Theme Toggle -->
+    <button id="toggle-mode">🌙 Dark Mode</button>
+
+    <!-- 🚗 TrafficAI Header -->
     <header>
-        <div class="logo-container">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAA..." alt="TrafficAI Logo" class="logo">
-            <h1>TrafficAI</h1>
-        </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#traffic-section">Traffic</a></li>
-                <li><a href="#weather-section">Weather</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button id="theme-btn" class="theme-btn">🌙 Dark Mode</button>
-        </div>
+        <h1>🚦 TrafficAI</h1>
+        <p>AI-Powered Smart Traffic Management System</p>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD..." alt="Real-Time Traffic" class="hero-image">
-        <div class="hero-text">
-            <h2>Real-Time Traffic & AI Assistant</h2>
-            <p>Get AI-powered insights to optimize your journey.</p>
-            <button class="cta-button" onclick="scrollToTraffic()">View Traffic Updates</button>
+    <!-- 🗺️ Interactive Map (Placeholder) -->
+    <section class="map-container">
+        <h2>Live Traffic Map</h2>
+        <div class="map">
+            <p>🗺️ Interactive Traffic Map Coming Soon...</p>
         </div>
     </section>
 
-    <!-- LIVE TRAFFIC UPDATES -->
-    <section class="traffic-section" id="traffic-section">
-        <h2>Live Traffic Updates 🚦</h2>
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD..." alt="Traffic Jam" class="traffic-img">
-        <p>Manually report traffic conditions in your area.</p>
-        <textarea id="traffic-input" placeholder="Enter traffic details..."></textarea>
-        <button id="update-traffic">Update Traffic</button>
-        <div class="traffic-display">
-            <h3>Recent Reports:</h3>
-            <ul id="traffic-reports"></ul>
-        </div>
+    <!-- 🚦 Real-Time Traffic Updates -->
+    <section class="traffic-status">
+        <h2>Traffic Updates</h2>
+        <p class="traffic-display">Fetching live data...</p>
     </section>
 
-    <!-- WEATHER UPDATES -->
-    <section class="weather-section" id="weather-section">
-        <h2>Weather Updates ☁️</h2>
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD..." alt="Weather Forecast" class="weather-img">
-        <p>Select a condition to check the estimated weather impact.</p>
-        <select id="weather-options">
-            <option value="clear">Clear Sky ☀️</option>
-            <option value="rain">Rainy 🌧️</option>
-            <option value="storm">Stormy ⛈️</option>
-            <option value="snow">Snowy ❄️</option>
+    <!-- 🛣️ AI-Powered Route Optimization -->
+    <section class="route-optimization">
+        <h2>Find the Best Route</h2>
+        <button id="route-optimize">🚀 Optimize Route</button>
+    </section>
+
+    <!-- 🎤 Voice Commands -->
+    <section class="voice-control">
+        <h2>Voice Control</h2>
+        <button id="voice-command">🎙️ Activate Voice Command</button>
+    </section>
+
+    <!-- 🚏 Traffic Signal Timings -->
+    <section class="signal-info">
+        <h2>Traffic Signal Timings</h2>
+        <p>Loading data...</p>
+    </section>
+
+    <!-- 🔔 Custom Alerts -->
+    <section class="custom-alerts">
+        <h2>Set Custom Alerts</h2>
+        <select id="alert-options">
+            <option value="accident">🚧 Accident Alerts</option>
+            <option value="road-closure">🚫 Road Closures</option>
+            <option value="congestion">🔴 Heavy Congestion</option>
         </select>
-        <button id="check-weather">Check Impact</button>
-        <div class="weather-display">Weather details will appear here...</div>
+        <button id="set-alert">🔔 Set Alert</button>
     </section>
 
-    <!-- AI CHATBOT -->
-    <div class="chatbot-container">
-        <button class="chatbot-toggle">💬 Chat</button>
-        <div class="chatbot">
-            <div class="chat-header">
-                <h3>AI Assistant</h3>
-                <button class="close-chat">✖</button>
-            </div>
-            <div class="chatbox"></div>
-            <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Ask me anything...">
-                <button id="send-message">Send</button>
-                <button id="voice-input">🎙️</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- CONTACT SECTION -->
-    <section class="contact" id="contact">
-        <h2>Contact Us 📧</h2>
-        <p>Email: support@trafficai.com</p>
-        <p>Phone: +1 234 567 890</p>
-        <div class="social-icons">
-            <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAA..." alt="Facebook"></a>
-            <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAA..." alt="Twitter"></a>
-            <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAA..." alt="Instagram"></a>
-        </div>
+    <!-- 🔌 Bluetooth / Wi-Fi Pairing -->
+    <section class="connectivity">
+        <h2>Connect to Vehicle</h2>
+        <button id="connect-vehicle">🔗 Pair with Car</button>
     </section>
 
-    <!-- FOOTER -->
+    <!-- 🌐 Language Selection -->
+    <section class="language">
+        <h2>Language Options</h2>
+        <select id="language-select">
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Spanish</option>
+            <option value="fr">🇫🇷 French</option>
+            <option value="hi">🇮🇳 Hindi</option>
+        </select>
+    </section>
+
+    <!-- 📍 GPS & Sensor Data -->
+    <section class="vehicle-data">
+        <h2>Vehicle Data</h2>
+        <p>GPS: <span id="gps-data">Loading...</span></p>
+        <p>Speed: <span id="speed-data">0 km/h</span></p>
+    </section>
+
+    <!-- 🔐 Login -->
+    <section class="login">
+        <button id="login-btn">🔑 Login</button>
+    </section>
+
     <footer>
-        <p>© 2025 TrafficAI. All rights reserved.</p>
+        <p>🚦 TrafficAI | Smart Traffic Solutions</p>
     </footer>
 
 </body>
